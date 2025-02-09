@@ -1,15 +1,18 @@
+import { User } from "./user";
+
 export interface Customer {
-    id: number;
-    name: string;
-    email: string;
-    status: string;
-    document: string;
-  }
-  
-  export interface CustomerState {
-    customers: Customer[];
-    loading: boolean;
-    offset: number;
-    hasMore: boolean;
-  }
-  
+  id: number;
+  userId: number;
+  status: string;
+  document: string | null;
+  createdAt: string;
+  updatedAt: string;
+  user: User;
+}
+
+export interface CustomerState {
+  customers: Customer[];
+  loading: boolean;
+  offset: number;
+  hasMore: boolean;
+}

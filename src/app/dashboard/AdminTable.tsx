@@ -1,4 +1,4 @@
-"use client"; // ✅ Ensures it's only rendered on the client
+"use client"; //  Ensures it's only rendered on the client
 
 import { useEffect, useRef, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Typography, Chip, Grid, Card, CardContent, IconButton, Box, Button } from "@mui/material";
@@ -8,7 +8,6 @@ import { RootState, AppDispatch } from "@/redux/store";
 import { fetchCustomers, updateStatus } from "@/redux/actions/customerActions";
 import { fetchSummary } from "@/redux/actions/summaryActions";
 import { Customer } from "@/types/customer";
-import dynamic from "next/dynamic";
 
 export default function AdminTable() {
     const dispatch = useDispatch<AppDispatch>();
@@ -20,12 +19,12 @@ export default function AdminTable() {
     const observer = useRef<IntersectionObserver | null>(null);
     const [hydrated, setHydrated] = useState(false);
 
-    // ✅ Prevent SSR from rendering until fully hydrated
+    //  Prevent SSR from rendering until fully hydrated
     useEffect(() => {
         setHydrated(true);
     }, []);
 
-    // ✅ Fetch data only on the client-side
+    //  Fetch data only on the client-side
     useEffect(() => {
         if (hydrated) {
             dispatch(fetchSummary());
@@ -34,7 +33,7 @@ export default function AdminTable() {
     }, [dispatch, hydrated]);
 
 
-    // ✅ Lazy Loading Observer (Only runs when `hasMore` is true)
+    //  Lazy Loading Observer (Only runs when `hasMore` is true)
     useEffect(() => {
         if (!loader.current || !hasMore) return;
 
@@ -112,7 +111,7 @@ export default function AdminTable() {
                         {customers.map((customer: Customer) => (
                             <TableRow key={customer.id} hover>
                                 <TableCell>{customer.id}</TableCell>
-                                <TableCell>{customer.name}</TableCell>
+                                <TableCell>{customer.user.name}</TableCell>
                                 <TableCell>
                                     <Chip
                                         label={customer.status.toUpperCase()}
@@ -127,9 +126,11 @@ export default function AdminTable() {
                                     />
                                 </TableCell>
                                 <TableCell>
+                                    {customer.document && (
                                     <IconButton href={customer.document} target="_blank" color="info">
                                         <Visibility />
                                     </IconButton>
+                                    )}
                                 </TableCell>
                                 <TableCell>
                                     {/* Action Buttons */}
