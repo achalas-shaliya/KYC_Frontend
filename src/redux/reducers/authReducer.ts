@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// ✅ Load token from localStorage (client-side)
+// Load token from localStorage (client-side)
 const isClient = typeof window !== "undefined";
 const initialState = {
   token: isClient ? localStorage.getItem("token") : null,

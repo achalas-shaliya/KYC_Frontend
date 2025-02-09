@@ -21,8 +21,7 @@ const AdminLogin = () => {
     setError("");
 
     dispatch(login(email, password));
-    console.log("LOGIN SUCCESS");
-    
+    router.push("/dashboard");
     setLoading(false);
   };
 
