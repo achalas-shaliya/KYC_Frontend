@@ -29,12 +29,13 @@ export const addCustomer = (customerData: { name: string; email: string; file: F
     await api.post("/customer", customerPayload);
 
     dispatch(fetchCustomers()); // Refresh customer list after adding
-  } catch (error: any) {
-    console.error("Error adding customer:", error.response?.data?.message || error.message);
+  } catch (error) {
+    const err = error as any;
+    console.error("Error updating customer status:", err.response?.data?.message || err.message);
   }
 };
 
-export const fetchCustomers = (offset = 0, limit = 10) => async (dispatch: AppDispatch, getState: () => RootState) => {
+export const fetchCustomers = (offset = 0, limit = 10) => async (dispatch: AppDispatch) => {
   try {
     const res = await api.get(`/customers?offset=${offset}&limit=${limit}`);
 
@@ -48,8 +49,9 @@ export const fetchCustomers = (offset = 0, limit = 10) => async (dispatch: AppDi
 
     // Update hasMore state
     dispatch(setHasMore(res.data.data.length === limit));
-  } catch (error: any) {
-    console.error("Error fetching customers:", error.response?.data?.message || error.message);
+  } catch (error) {
+    const err = error as any;
+    console.error("Error updating customer status:", err.response?.data?.message || err.message);
   }
 };
 
@@ -59,7 +61,8 @@ export const updateStatus = (id: number, status: string) => async (dispatch: App
     await api.patch(`/customers/${id}`, { status });
     dispatch(updateCustomerStatus({ id, status }));
     dispatch(fetchCustomers()); // Refresh list after update
-  } catch (error: any) {
-    console.error("Error updating customer status:", error.response?.data?.message || error.message);
+  } catch (error) {
+    const err = error as any;
+    console.error("Error updating customer status:", err.response?.data?.message || err.message);
   }
 };

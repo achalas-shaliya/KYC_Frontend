@@ -5,7 +5,9 @@ import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function AuthGuard({ children }:any) {
+import { ReactNode } from "react";
+
+export default function AuthGuard({ children }: { children: ReactNode }) {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
 

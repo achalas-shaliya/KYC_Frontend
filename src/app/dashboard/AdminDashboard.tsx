@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container, CircularProgress, Typography, Button, Box } from "@mui/material";
+import { Container, Typography, Button, Box } from "@mui/material";
 import AdminTable from "./AdminTable"; // Import the reusable table component
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
@@ -10,8 +10,7 @@ import { logout } from "@/redux/actions/authActions";
 
 const AdminDashboard = () => {
     const router = useRouter();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading] = useState(true);
     const dispatch = useDispatch<AppDispatch>();
 
 

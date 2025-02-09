@@ -43,11 +43,11 @@ const CustomerForm = () => {
 
       const documentUrl = uploadRes.data.url;
 
-      dispatch(register(email, password, "customer", name));
+      dispatch(register(email, password, "customer", name, documentUrl));
       setSnackbar({ open: true, message: "Customer Registered Successfully!", severity: "success" });
-      router.push("/login") 
-    } catch (err: any) {
-      setSnackbar({ open: true, message: err.message, severity: "error" });
+      router.push("/login")
+    } catch (err) {
+      setSnackbar({ open: true, message: (err as Error).message, severity: "error" });
     } finally {
       setLoading(false);
     }
@@ -70,7 +70,7 @@ const CustomerForm = () => {
 
       {/* Snackbar Notification */}
       <Snackbar open={snackbar.open} autoHideDuration={3000} onClose={() => setSnackbar({ ...snackbar, open: false })}>
-        <Alert severity={snackbar.severity as any} sx={{ width: "100%" }}>
+        <Alert severity={snackbar.severity as "success" | "error" | "warning" | "info"} sx={{ width: "100%" }}>
           {snackbar.message}
         </Alert>
       </Snackbar>

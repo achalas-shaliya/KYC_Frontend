@@ -11,7 +11,7 @@ import { Customer } from "@/types/customer";
 
 export default function AdminTable() {
     const dispatch = useDispatch<AppDispatch>();
-    const { customers, hasMore, loading } = useSelector((state: RootState) => state.customers);
+    const { customers, hasMore } = useSelector((state: RootState) => state.customers);
     const summary = useSelector((state: RootState) => state.summary);
 
     const [offset, setOffset] = useState(0);
@@ -36,6 +36,7 @@ export default function AdminTable() {
     //  Lazy Loading Observer (Only runs when `hasMore` is true)
     useEffect(() => {
         if (!loader.current || !hasMore) return;
+        console.log(offset);
 
         observer.current = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
@@ -49,7 +50,7 @@ export default function AdminTable() {
 
         observer.current.observe(loader.current);
         return () => observer.current?.disconnect();
-    }, [dispatch, hasMore]);
+    }, [dispatch, hasMore, offset]);
 
     // if (!hydrated) return null;
 
@@ -127,9 +128,9 @@ export default function AdminTable() {
                                 </TableCell>
                                 <TableCell>
                                     {customer.document && (
-                                    <IconButton href={customer.document} target="_blank" color="info">
-                                        <Visibility />
-                                    </IconButton>
+                                        <IconButton href={customer.document} target="_blank" color="info">
+                                            <Visibility />
+                                        </IconButton>
                                     )}
                                 </TableCell>
                                 <TableCell>

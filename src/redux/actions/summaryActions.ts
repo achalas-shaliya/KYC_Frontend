@@ -11,7 +11,8 @@ export const fetchSummary = () => async (dispatch: AppDispatch, getState: () => 
     try {
         const res = await api.get("/summary");
         dispatch(setSummary(res.data));
-    } catch (error: any) {
-        console.error("Error fetching summary:", error.response?.data?.message || error.message);
+    } catch (error) {
+        const err = error as any;
+        console.error("Error updating customer status:", err.response?.data?.message || err.message);
     }
 };

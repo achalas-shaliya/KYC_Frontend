@@ -28,16 +28,17 @@ export const login = (email: string, password: string) => async (dispatch: AppDi
         window.location.href = "/";
       }
     }
-  } catch (error: any) {
-    console.error("Login failed:", error.response?.data?.message || error.message);
+  } catch (error) {
+    const err = error as any;
+    console.error("Error updating customer status:", err.response?.data?.message || err.message);
   }
 };
 
 
 //  Register API Call
-export const register = (email: string, password: string, role: string, name?: string) => async (dispatch: AppDispatch) => {
+export const register = (email: string, password: string, role: string, name?: string, document?: string) => async (dispatch: AppDispatch) => {
   try {
-    const res = await api.post<AuthResponse>("/auth/register", { email, password, role, name });
+    const res = await api.post<AuthResponse>("/auth/register", { email, password, role, name, document });
 
     if (res.data.token) {
       const { token, user } = res.data;
@@ -51,8 +52,9 @@ export const register = (email: string, password: string, role: string, name?: s
         window.location.href = "/";
       }
     }
-  } catch (error: any) {
-    console.error("Registration failed:", error.response?.data?.message || error.message);
+  } catch (error) {
+    const err = error as any;
+    console.error("Error updating customer status:", err.response?.data?.message || err.message);
   }
 };
 
@@ -70,7 +72,8 @@ export const logout = () => (dispatch: AppDispatch) => {
     //  Redirect to login page after logout
     window.location.href = "/login";
   } catch (error) {
-    console.error("Error during logout:", error);
+    const err = error as any;
+    console.error("Error updating customer status:", err.response?.data?.message || err.message);
   }
 };
 
