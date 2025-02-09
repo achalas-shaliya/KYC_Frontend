@@ -36,8 +36,7 @@ export default function AdminTable() {
     //  Lazy Loading Observer (Only runs when `hasMore` is true)
     useEffect(() => {
         if (!loader.current || !hasMore) return;
-        console.log(offset);
-
+        // console.log(offset);
         observer.current = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
                 setOffset((prevOffset) => {

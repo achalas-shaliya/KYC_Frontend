@@ -15,14 +15,13 @@ interface AuthResponse {
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
   try {
     const res = await api.post<AuthResponse>("/auth/login", { email, password });
-
+    
     if (res.data.token) {
-      const { token, user } = res.data;
-
-      dispatch(setAuth({ token, email: user.email, role: user.role }));
+      const { token, role}:any = res.data;
+      dispatch(setAuth({ token, email, role }));
 
       //  Redirect user based on role
-      if (user.role === "admin" || user.role === "manager") {
+      if (role === "admin" || role === "manager") {
         window.location.href = "/dashboard";
       } else {
         window.location.href = "/";
