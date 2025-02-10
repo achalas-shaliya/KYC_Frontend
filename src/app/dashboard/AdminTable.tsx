@@ -49,7 +49,7 @@ export default function AdminTable() {
 
         observer.current.observe(loader.current);
         return () => observer.current?.disconnect();
-    }, [dispatch, hasMore, offset]);
+    }, [dispatch, hasMore]);
 
     // if (!hydrated) return null;
 
